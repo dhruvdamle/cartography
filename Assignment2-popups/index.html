@@ -1,0 +1,95 @@
+<!-- Leaflet documentation for geoJSON: http://leafletjs.com/examples/geojson.html -->
+<!-- Pulling in geojson points from an external file, using the L.circleMarker function to turn the markers into circles, then adding styles. -->
+
+<!DOCTYPE html>
+<head>
+  <style>
+    body {
+      padding:0;
+      margin:0;
+      height: 100%;
+    }
+    html, #map{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    } 
+  </style>
+
+  <title> Map with Leaflet Markers and Pop-ups</title>
+  <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+  <script src ="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>  
+
+  
+  <!-- Below is for our Maki markers -->
+  <script src="js/Leaflet.MakiMarkers.js"></script> 
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+
+  L.Map = L.Map.extend({
+    openPopup: function(popup) {
+      this._popup = popup;
+
+      return this.addLayer(popup).fire('popupopen', {
+        popup: this._popup
+      });
+    }
+  }); 
+
+
+  // CartoDB Map
+  var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  });
+
+  var map = L.map('map').setView([30,0], 2);
+  map.addLayer(layer);
+
+
+
+
+places = [
+  ["New York", -74.005941, 40.712784],
+  ["Seattle", -122.332071, 47.606209],
+  ["Pune", 73.856744,18.520430],
+  ["New Delhi", 77.209021,28.613939],
+ ["Mumbai", 72.877656,19.075984],
+ ["Ahmedabad",72.571362,23.022505],
+ ["Jaipur", 75.787271,26.912434],
+ ["Chennai", 80.270718,13.082680],
+ ["Thiruvananthapuram", 76.936638,8.524139],
+ ["Puducherry", 79.814472,11.913860],
+  ["Gandhinagar", 72.636941,23.215635],
+ ["Manali", 77.188715,32.239632],
+ ["Ajmer", 74.639916,26.449895],
+ ["Bangalore", 77.594563,12.971599],
+ ["Goa", 74.123996,15.299326],
+ ["Hyderabad", 78.486671,17.385044],
+ ["kochin", 76.267304,9.931233],
+ ["Hong Kong", 114.109497,22.396428],
+  ["Macau", 113.543873,22.198745],
+ ["Munich", 11.581981,48.135125],
+ ["Abu Dhabi", 54.697277,24.299174]
+];
+
+
+
+  icons = [
+  L.MakiMarkers.icon({icon: "circle-stroked", color: "#00e5ee", size: "s"})
+  ]
+
+
+  for (var i = 0; i < places.length; i++){
+    var marker = new L.marker([places[i][2], places[i][1]], {icon: icons[0]}).addTo(map)
+    marker.bindPopup(places[i][0]);
+  };
+
+
+
+  </script>
+</body>
+</html>

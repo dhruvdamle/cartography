@@ -1,0 +1,379 @@
+<!-- Leaflet documentation for geoJSON: http://leafletjs.com/examples/geojson.html -->
+<!-- Pulling in geojson points from an external file, using the L.circleMarker function to turn the markers into circles, then adding styles. -->
+
+<!DOCTYPE html>
+<head>
+  <style>
+    body {
+      padding:0;
+      margin:0;
+      height: 100%;
+    }
+    html, #map{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    } 
+  </style>
+
+  <title> Map with Leaflet Markers and Pop-ups</title>
+  <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+  <script src ="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>  
+
+  <!-- Jquery so that we can pull in external JSON files  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+
+  // CartoDB Map
+  var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  });
+
+  var map = L.map('map').setView([30,0], 2);
+  map.addLayer(layer);
+
+
+  var cities = {
+   "type":"FeatureCollection",
+   "features":[
+      {
+         "type":"Feature",
+         "id":1,
+         "properties":{
+            "name": "New York"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+                -74.005941,
+              40.712784
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":2,
+         "properties":{
+            "name": "Seattle"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               -122.332071,
+              47.606209
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":3,
+         "properties":{
+            "name":"Pune"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              73.856744,
+               18.520430
+            ]
+         }
+      },
+      
+      {
+         "type":"Feature",
+         "id":4,
+         "properties":{
+            "name": "New Delhi"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              77.209021,
+               28.613939
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":5,
+         "properties":{
+            "name": "Mumbai"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              72.877656,
+               19.075984
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":6,
+         "properties":{
+            "name": "Ahmedabad"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              72.571362,
+               23.022505
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":7,
+         "properties":{
+            "name": "Jaipur"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              75.787271,
+               26.912434
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":8,
+         "properties":{
+            "name": "Chennai"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              80.270718,
+              13.082680
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":9,
+         "properties":{
+            "name": "Thiruvananthapuram"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              76.936638,
+              8.524139
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":10,
+         "properties":{
+            "name": "Puducherry"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              79.814472,
+              11.913860
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":11,
+         "properties":{
+            "name": "Gandhinagar"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              72.636941,
+             23.215635
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":12,
+         "properties":{
+            "name": "Manali"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              77.188715,
+             32.239632
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":13,
+         "properties":{
+            "name": "Ajmer"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              74.639916,
+             26.449895
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":14,
+         "properties":{
+            "name": "Bangalore"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              77.594563,
+             12.971599
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":15,
+         "properties":{
+            "name": "Goa"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              74.123996,
+             15.299326
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":16,
+         "properties":{
+            "name": "Hyderabad"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              78.486671,
+             17.385044
+            ]
+         }
+      },
+
+
+      {
+         "type":"Feature",
+         "id":17,
+         "properties":{
+            "name": "kochin"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              76.267304,
+             9.931233
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":18,
+         "properties":{
+            "name": "Hong Kong"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              114.109497,
+             22.396428
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":19,
+         "properties":{
+            "name": "Macau"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              113.543873,
+             22.198745
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":20,
+         "properties":{
+            "name": "Munich"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+              11.581981,
+             48.135125
+            ]
+         }
+      },
+
+      {
+         "type":"Feature",
+         "id":21,
+         "properties":{
+            "name": "Abu Dhabi"
+         },
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+             54.697277,
+             24.299174
+            ]
+         }
+      }
+   ]
+}
+
+
+  geojsonStyle = {
+    "color": "#00e5ee",
+    radius: 10
+  }
+
+
+L.geoJson(cities, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonStyle);
+    onEachFeature: onEachFeature
+    }
+}).addTo(map);
+
+
+  </script>
+</body>
+</html>
